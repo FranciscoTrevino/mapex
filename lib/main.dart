@@ -20,10 +20,12 @@ class RouteMap extends StatefulWidget {
 }
 
 class _RouteMapState extends State<RouteMap> {
-  final List<String> options1 = ['Opción 1', 'Opción 2'];
-  final List<String> options2 = ['Opción A', 'Opción B'];
-  String selectedOption1 = 'Opción 1'; // Opción predeterminada
-  String selectedOption2 = 'Opción A'; // Opción predeterminada
+  final List<String> options1 = ['Animales', 'Opción 2'];
+  final List<String> options2 = ['Restaurante', 'Opción B'];
+  final List<String> options3 = ['Ninguna', 'Evento 1', 'Opción Y']; // Tercer Dropdown con opciones extendidas
+  String selectedOption1 = 'Animales'; // Opción predeterminada
+  String selectedOption2 = 'Restaurante'; // Opción predeterminada
+  String selectedOption3 = 'Ninguna'; // Opción predeterminada para el tercer Dropdown
   late List<Offset> controlPoints;
   late Offset startPoint; // Punto de inicio
 
@@ -35,60 +37,53 @@ class _RouteMapState extends State<RouteMap> {
 
   void updateControlPoints() {
     setState(() {
-      if (selectedOption1 == 'Opción 1' && selectedOption2 == 'Opción A') {
+      if (selectedOption1 == 'Animales' && selectedOption2 == 'Restaurante') {
         controlPoints = [
           // Puntos para la combinación Opción 1 y Opción A
-          const Offset(200, 170),
-          const Offset(200, 165),
-          const Offset(220, 180),
-          const Offset(220, 185),
-          const Offset(230, 170),
-          const Offset(232, 160),
-          const Offset(240, 160),
-          const Offset(250, 160),
-          const Offset(260, 162),
-          const Offset(270, 162),
-          const Offset(280, 164),
-          const Offset(284, 164.5),
-          const Offset(287, 162),
-          const Offset(288, 162),
-          const Offset(289, 161),
-          const Offset(290, 161),
-          const Offset(292, 157),
-          const Offset(294, 154),
-          const Offset(294, 151),
-          const Offset(294, 147),
-          const Offset(294, 130),
+          const Offset(165, 110),
+          const Offset(167, 115),
+          const Offset(180, 101),
+          const Offset(185, 90),
+          const Offset(230, 120),
+          const Offset(230, 120),
+          const Offset(230, 120),
+          const Offset(245, 120),
+          const Offset(245, 112),
+          const Offset(245, 112),
+          const Offset(260, 125),
+          const Offset(260, 128),
+          const Offset(260, 128),
+          const Offset(290, 127),
 
-          // Añade más puntos aquí según tu necesidad
+
+          if (selectedOption3 != 'Ninguna') ...[
+            // Agrega puntos adicionales si se elige algo en el tercer Dropdown
+            const Offset(280, 162),
+            const Offset(290, 162),
+            const Offset(300, 162),
+          ],
         ];
-        startPoint = const Offset(190, 180); // Punto de inicio para esta combinación
-      } else if (selectedOption1 == 'Opción 1' && selectedOption2 == 'Opción B') {
+        startPoint = (selectedOption3 == 'Ninguna') ? Offset(160, 105) : Offset(190, 180);
+      } else if (selectedOption1 == 'Animales' && selectedOption2 == 'Opción B') {
         controlPoints = [
           // Puntos para la combinación Opción 1 y Opción B
-          const Offset(260, 127),  // Ajusta la ubicación del punto de inicio
+          const Offset(260, 127),
           const Offset(260, 180),
           const Offset(270, 190),
-          // Añade más puntos aquí según tu necesidad
+          if (selectedOption3 != 'Ninguna' && selectedOption3 == 'Evento 1') ...[
+            const Offset(280, 190),
+            const Offset(290, 190),
+            const Offset(300, 190),
+          ],
+          if (selectedOption3 != 'Ninguna' && selectedOption3 == 'Opción Y') ...[
+            const Offset(290, 190),
+            const Offset(300, 190),
+            const Offset(320, 190),
+          ]
         ];
-        startPoint = const Offset(294, 130); // Punto de inicio para esta combinación
-      } else if (selectedOption1 == 'Opción 2' && selectedOption2 == 'Opción A') {
-        controlPoints = [
-          // Puntos para la combinación Opción 2 y Opción A
-          const Offset(250, 170),  // Ajusta la ubicación del punto de inicio
-          const Offset(260, 180),
-          const Offset(270, 190),
-        ];
-        startPoint = const Offset(150, 160); // Punto de inicio para esta combinación
-      } else if (selectedOption1 == 'Opción 2' && selectedOption2 == 'Opción B') {
-        controlPoints = [
-          // Puntos para la combinación Opción 2 y Opción B
-          const Offset(200, 170),
-          const Offset(200, 165),
-          const Offset(220, 180),
-        ];
-        startPoint = const Offset(180, 170); // Punto de inicio para esta combinación
+        startPoint = (selectedOption3 == 'Ninguna') ? Offset(294, 130) : Offset(294, 130);
       }
+      // Agrega más combinaciones y ajusta las coordenadas de acuerdo a tus necesidades
     });
   }
 
@@ -100,6 +95,19 @@ class _RouteMapState extends State<RouteMap> {
       ),
       body: Column(
         children: [
+          Expanded(
+            child: Stack(
+              children: <Widget>[
+                // Imagen de fondo (puedes usar AssetImage o NetworkImage)
+                Image.asset('assets/mapa.jpg'),
+
+                // Ejemplo de trazar una ruta desde el punto de inicio
+                CustomPaint(
+                  painter: RoutePainter(controlPoints, startPoint),
+                ),
+              ],
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -138,22 +146,27 @@ class _RouteMapState extends State<RouteMap> {
                   }
                 },
               ),
+              SizedBox(width: 16.0),
+              DropdownButton<String>(
+                value: selectedOption3,
+                items: options3.map((String option) {
+                  return DropdownMenuItem<String>(
+                    value: option,
+                    child: Text(option),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  if (newValue != null) {
+                    setState(() {
+                      selectedOption3 = newValue;
+                      updateControlPoints();
+                    });
+                  }
+                },
+              ),
             ],
           ),
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                // Imagen de fondo (puedes usar AssetImage o NetworkImage)
-                Image.asset('assets/mapa.jpg'),
-
-                // Ejemplo de trazar una ruta desde el punto de inicio
-                CustomPaint(
-                  painter: RoutePainter(controlPoints, startPoint),
-                ),
-              ],
-            ),
-          ),
-          Text("Las opciones con numeros son el inicio y las opciones con letra son el final"),
+          Text("Las opciones con números son el inicio y las opciones con letras son el final"),
         ],
       ),
     );
