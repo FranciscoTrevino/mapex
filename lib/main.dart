@@ -45,9 +45,8 @@ class _RouteMapState extends State<RouteMap> {
           const Offset(180, 101),
           const Offset(185, 90),
           const Offset(230, 120),
-          const Offset(230, 120),
-          const Offset(230, 120),
-          const Offset(245, 120),
+          const Offset(230, 125),
+          const Offset(245, 125),
           const Offset(245, 112),
           const Offset(245, 112),
           const Offset(260, 125),
@@ -58,12 +57,20 @@ class _RouteMapState extends State<RouteMap> {
 
           if (selectedOption3 != 'Ninguna') ...[
             // Agrega puntos adicionales si se elige algo en el tercer Dropdown
-            const Offset(280, 162),
-            const Offset(290, 162),
-            const Offset(300, 162),
+            if (selectedOption3 == 'Evento 1') ...[
+              const Offset(290, 127),
+              const Offset(290, 127),
+              const Offset(290, 110),
+              const Offset(284, 107),
+              const Offset(279, 104),
+              const Offset(277, 100),
+              const Offset(277, 100),
+              const Offset(294, 83),
+
+            ],
           ],
         ];
-        startPoint = (selectedOption3 == 'Ninguna') ? Offset(160, 105) : Offset(190, 180);
+        startPoint = (selectedOption3 == 'Ninguna') ? Offset(160, 105) : Offset(160, 105);
       } else if (selectedOption1 == 'Animales' && selectedOption2 == 'Opción B') {
         controlPoints = [
           // Puntos para la combinación Opción 1 y Opción B
