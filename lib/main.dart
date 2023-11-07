@@ -53,23 +53,21 @@ class _RouteMapState extends State<RouteMap> {
           const Offset(260, 128),
           const Offset(260, 128),
           const Offset(290, 127),
+      if (selectedOption3 != 'Ninguna') ...[
+      // Agrega puntos adicionales si se elige algo en el tercer Dropdown
+      if (selectedOption3 == 'Evento 1') ...[
+      const Offset(290, 127),
+      const Offset(290, 127),
+      const Offset(290, 110),
+      const Offset(284, 107),
+      const Offset(279, 104),
+      const Offset(277, 100),
+      const Offset(277, 100),
+      const Offset(294, 83),
+      ],
+      ],
 
-
-          if (selectedOption3 != 'Ninguna') ...[
-            // Agrega puntos adicionales si se elige algo en el tercer Dropdown
-            if (selectedOption3 == 'Evento 1') ...[
-              const Offset(290, 127),
-              const Offset(290, 127),
-              const Offset(290, 110),
-              const Offset(284, 107),
-              const Offset(279, 104),
-              const Offset(277, 100),
-              const Offset(277, 100),
-              const Offset(294, 83),
-
-            ],
-          ],
-        ];
+      ];
         startPoint = (selectedOption3 == 'Ninguna') ? Offset(160, 105) : Offset(160, 105);
       } else if (selectedOption1 == 'Animales' && selectedOption2 == 'Opción B') {
         controlPoints = [
@@ -77,16 +75,6 @@ class _RouteMapState extends State<RouteMap> {
           const Offset(260, 127),
           const Offset(260, 180),
           const Offset(270, 190),
-          if (selectedOption3 != 'Ninguna' && selectedOption3 == 'Evento 1') ...[
-            const Offset(280, 190),
-            const Offset(290, 190),
-            const Offset(300, 190),
-          ],
-          if (selectedOption3 != 'Ninguna' && selectedOption3 == 'Opción Y') ...[
-            const Offset(290, 190),
-            const Offset(300, 190),
-            const Offset(320, 190),
-          ]
         ];
         startPoint = (selectedOption3 == 'Ninguna') ? Offset(294, 130) : Offset(294, 130);
       }
@@ -130,7 +118,6 @@ class _RouteMapState extends State<RouteMap> {
                   if (newValue != null) {
                     setState(() {
                       selectedOption1 = newValue;
-                      updateControlPoints();
                     });
                   }
                 },
@@ -148,7 +135,6 @@ class _RouteMapState extends State<RouteMap> {
                   if (newValue != null) {
                     setState(() {
                       selectedOption2 = newValue;
-                      updateControlPoints();
                     });
                   }
                 },
@@ -166,12 +152,17 @@ class _RouteMapState extends State<RouteMap> {
                   if (newValue != null) {
                     setState(() {
                       selectedOption3 = newValue;
-                      updateControlPoints();
                     });
                   }
                 },
               ),
             ],
+          ),
+          ElevatedButton(
+            onPressed: () {
+              updateControlPoints();
+            },
+            child: Text('Dibujar Offset'),
           ),
           Text("Las opciones con números son el inicio y las opciones con letras son el final"),
         ],
@@ -197,7 +188,6 @@ class RoutePainter extends CustomPainter {
     final path = Path();
     path.moveTo(startPoint.dx, startPoint.dy);  // Punto de inicio
 
-    // Genera la línea curva
     for (double t = 0.0; t <= 1.0; t += 0.01) {
       final point = _getPointOnCurve(controlPoints, t);
       path.lineTo(point.dx, point.dy);
