@@ -20,12 +20,12 @@ class RouteMap extends StatefulWidget {
 }
 
 class _RouteMapState extends State<RouteMap> {
-  final List<String> options1 = ['Animales', 'Opción 2'];
-  final List<String> options2 = ['Restaurante', 'Opción B'];
-  final List<String> options3 = ['Ninguna', 'Evento 1', 'Opción Y']; // Tercer Dropdown con opciones extendidas
-  String selectedOption1 = 'Animales'; // Opción predeterminada
-  String selectedOption2 = 'Restaurante'; // Opción predeterminada
-  String selectedOption3 = 'Ninguna'; // Opción predeterminada para el tercer Dropdown
+  final List<String> options1 = ['Zona 1a', 'Zona 2a'];
+  final List<String> options2 = ['Zona 1b', 'Zona 2b'];
+  final List<String> options3 = ['Ninguna', 'Zona 1c', 'Zona 2c']; // Tercer Dropdown con opciones extendidas
+  String selectedOption1 = 'Zona 1a'; // Opción predeterminada
+  String selectedOption2 = 'Zona 1b'; // Opción predeterminada
+  String selectedOption3 = 'Ninguna'; // Opación predeterminada para el tercer Dropdown
   late List<Offset> controlPoints;
   late Offset startPoint; // Punto de inicio
 
@@ -37,41 +37,49 @@ class _RouteMapState extends State<RouteMap> {
 
   void updateControlPoints() {
     setState(() {
-      if (selectedOption1 == 'Animales' && selectedOption2 == 'Restaurante') {
+      if(selectedOption2 != 'Ninguna') {
+      if (selectedOption1 == 'Zona 1a') {
         controlPoints = [
           // Puntos para la combinación Opción 1 y Opción A
-          const Offset(165, 110),
-          const Offset(167, 115),
-          const Offset(180, 101),
-          const Offset(185, 90),
-          const Offset(230, 120),
-          const Offset(230, 125),
-          const Offset(245, 125),
-          const Offset(245, 112),
-          const Offset(245, 112),
-          const Offset(260, 125),
-          const Offset(260, 128),
-          const Offset(260, 128),
-          const Offset(290, 127),
+          const Offset(173, 330),
+          const Offset(173, 330),
+          const Offset(170, 320),
+          const Offset(170, 320),
+
+
+            if (selectedOption2 == 'Zona 1b') ...[
+              const Offset(166, 308),
+              const Offset(130, 290),
+              const Offset(123, 270),
+              const Offset(123, 270),
+              const Offset(123, 270),
+              const Offset(110, 250),
+            ],
+
+            if (selectedOption2 == 'Zona 2b') ...[
+              const Offset(207, 307),
+            ],
+
+
       if (selectedOption3 != 'Ninguna') ...[
       // Agrega puntos adicionales si se elige algo en el tercer Dropdown
-      if (selectedOption3 == 'Evento 1') ...[
-      const Offset(290, 127),
-      const Offset(290, 127),
-      const Offset(290, 110),
-      const Offset(284, 107),
-      const Offset(279, 104),
-      const Offset(277, 100),
-      const Offset(277, 100),
-      const Offset(294, 83),
-      ],
+        if (selectedOption3 == 'Zona 1c') ...[
+        const Offset(290, 127),
+        const Offset(290, 127),
+        const Offset(290, 110),
+        const Offset(284, 107),
+        const Offset(279, 104),
+        const Offset(277, 100),
+        const Offset(277, 100),
+        const Offset(294, 83),
+        ],
       ],
 
       ];
-        startPoint = (selectedOption3 == 'Ninguna') ? Offset(160, 105) : Offset(160, 105);
-      } else if (selectedOption1 == 'Animales' && selectedOption2 == 'Opción B') {
+        startPoint = (selectedOption3 == 'Ninguna') ? Offset(160, 355) : Offset(160, 355);
+      } }else if (selectedOption1 == 'Zona 1a' && selectedOption2 == 'Zona 2b') {
         controlPoints = [
-          // Puntos para la combinación Opción 1 y Opción B
+          // Puntos para la combinación Zona 1a y Zona 2b
           const Offset(260, 127),
           const Offset(260, 180),
           const Offset(270, 190),
