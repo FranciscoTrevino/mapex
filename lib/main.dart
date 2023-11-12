@@ -20,14 +20,15 @@ class RouteMap extends StatefulWidget {
 }
 
 class _RouteMapState extends State<RouteMap> {
-  final List<String> options1 = ['Zona 1a', 'Zona 2a'];
-  final List<String> options2 = ['Zona 1b', 'Zona 2b'];
-  final List<String> options3 = ['Ninguna', 'Zona 1c', 'Zona 2c']; // Tercer Dropdown con opciones extendidas
-  String selectedOption1 = 'Zona 1a'; // Opción predeterminada
-  String selectedOption2 = 'Zona 1b'; // Opción predeterminada
-  String selectedOption3 = 'Ninguna'; // Opación predeterminada para el tercer Dropdown
+  final List<String> options1 = ['Savanna Hall', 'Wieland Zone', 'World of Wildlife Theater'];
+  final List<String> options2 = ['Restaurante', 'Baños', 'Souvenirs'];
+  final List<String> options3 = ['Ninguna', 'Zona 1c'];
+  String selectedOption1 = 'Savanna Hall';
+  String selectedOption2 = 'Restaurante';
+  String selectedOption3 = 'Ninguna';
   late List<Offset> controlPoints;
-  late Offset startPoint; // Punto de inicio
+  late Offset startPoint;
+  bool drawOffsets = false;
 
   @override
   void initState() {
@@ -37,56 +38,112 @@ class _RouteMapState extends State<RouteMap> {
 
   void updateControlPoints() {
     setState(() {
-      if(selectedOption2 != 'Ninguna') {
-      if (selectedOption1 == 'Zona 1a') {
+      if (selectedOption1 == 'Savanna Hall') {
         controlPoints = [
-          // Puntos para la combinación Opción 1 y Opción A
           const Offset(173, 330),
           const Offset(173, 330),
           const Offset(170, 320),
           const Offset(170, 320),
-
-
-            if (selectedOption2 == 'Zona 1b') ...[
-              const Offset(166, 308),
-              const Offset(130, 290),
-              const Offset(123, 270),
-              const Offset(123, 270),
-              const Offset(123, 270),
-              const Offset(110, 250),
-            ],
-
-            if (selectedOption2 == 'Zona 2b') ...[
-              const Offset(207, 307),
-            ],
-
-
-      if (selectedOption3 != 'Ninguna') ...[
-      // Agrega puntos adicionales si se elige algo en el tercer Dropdown
-        if (selectedOption3 == 'Zona 1c') ...[
-        const Offset(290, 127),
-        const Offset(290, 127),
-        const Offset(290, 110),
-        const Offset(284, 107),
-        const Offset(279, 104),
-        const Offset(277, 100),
-        const Offset(277, 100),
-        const Offset(294, 83),
-        ],
-      ],
-
-      ];
-        startPoint = (selectedOption3 == 'Ninguna') ? Offset(160, 355) : Offset(160, 355);
-      } }else if (selectedOption1 == 'Zona 1a' && selectedOption2 == 'Zona 2b') {
-        controlPoints = [
-          // Puntos para la combinación Zona 1a y Zona 2b
-          const Offset(260, 127),
-          const Offset(260, 180),
-          const Offset(270, 190),
+          if (selectedOption2 == 'Restaurante') ...[
+            const Offset(166, 308),
+            const Offset(130, 290),
+            const Offset(123, 270),
+            const Offset(123, 270),
+            const Offset(123, 270),
+            const Offset(110, 250),
+          ],
+          if (selectedOption2 == 'Baños') ...[
+            const Offset(166, 308),
+            const Offset(130, 290),
+            const Offset(123, 270),
+            const Offset(123, 270),
+            const Offset(123, 270),
+            const Offset(110, 250),
+            const Offset(110, 250),
+            const Offset(122, 242),
+          ],
+          if (selectedOption3 != 'Ninguna' && selectedOption3 == 'Zona 1c') ...[
+            const Offset(290, 127),
+            const Offset(290, 127),
+            const Offset(290, 110),
+            const Offset(284, 107),
+            const Offset(279, 104),
+            const Offset(277, 100),
+            const Offset(277, 100),
+            const Offset(294, 83),
+          ],
+          if (selectedOption2 == 'Souvenirs') ...[
+            const Offset(166, 312),
+            const Offset(206, 304),
+            const Offset(206, 300),
+            const Offset(206, 300),
+            const Offset(206, 300),
+            const Offset(246, 344),
+          ],
         ];
-        startPoint = (selectedOption3 == 'Ninguna') ? Offset(294, 130) : Offset(294, 130);
+        startPoint = (selectedOption1 == 'Savanna Hall') ? const Offset(160, 355) : const Offset(160, 355);
+      } else if (selectedOption1 == 'Wieland Zone') {
+        controlPoints = [
+          if (selectedOption2 == 'Restaurante') ...[
+            const Offset(294, 230),
+            const Offset(310, 216),
+            const Offset(313, 196),
+            const Offset(313, 196),
+            const Offset(313, 186),
+            const Offset(313, 186),
+            const Offset(290, 166),
+            const Offset(275, 151),
+            const Offset(275, 136),
+          ],
+          if (selectedOption2 == 'Baños') ...[
+            const Offset(274, 242),
+            const Offset(276, 252),
+            const Offset(290, 263),
+          ],
+          if (selectedOption2 == 'Souvenirs') ...[
+            const Offset(294, 230),
+            const Offset(310, 216),
+            const Offset(313, 196),
+            const Offset(313, 196),
+            const Offset(313, 186),
+            const Offset(313, 186),
+            const Offset(290, 166),
+            const Offset(252, 115),
+            const Offset(252, 115),
+            const Offset(252, 115),
+            const Offset(250, 140),
+            const Offset(248, 138),
+            const Offset(248, 138),
+            const Offset(245, 135),
+            const Offset(240, 135),
+
+
+          ],
+        ];
+        startPoint = (selectedOption1 == 'Wieland Zone') ? const Offset(294, 247) : const Offset(294, 247);
+      } else if (selectedOption1 == 'World of Wildlife Theater') {
+        controlPoints = [
+          if (selectedOption2 == 'Restaurante') ...[
+            const Offset(205, 210),
+            const Offset(200, 220),
+            const Offset(190, 230),
+          ],
+          if (selectedOption2 == 'Baños') ...[
+            const Offset(210, 190),
+            const Offset(277, 120),
+          ],
+          if (selectedOption2 == 'Souvenirs') ...[
+            const Offset(210, 190),
+            const Offset(225, 170),
+            const Offset(225, 140),
+            const Offset(225, 140),
+            const Offset(230, 135),
+            const Offset(235, 130),
+            const Offset(238, 132),
+          ],
+        ];
+        startPoint = (selectedOption3 == 'Ninguna') ? const Offset(200, 190) : const Offset(200, 190);
       }
-      // Agrega más combinaciones y ajusta las coordenadas de acuerdo a tus necesidades
     });
   }
 
@@ -101,18 +158,15 @@ class _RouteMapState extends State<RouteMap> {
           Expanded(
             child: Stack(
               children: <Widget>[
-                // Imagen de fondo (puedes usar AssetImage o NetworkImage)
                 Image.asset('assets/mapa.jpg'),
-
-                // Ejemplo de trazar una ruta desde el punto de inicio
-                CustomPaint(
-                  painter: RoutePainter(controlPoints, startPoint),
-                ),
+                if (drawOffsets)
+                  CustomPaint(
+                    painter: RoutePainter(controlPoints, startPoint),
+                  ),
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
             children: [
               DropdownButton<String>(
                 value: selectedOption1,
@@ -126,11 +180,12 @@ class _RouteMapState extends State<RouteMap> {
                   if (newValue != null) {
                     setState(() {
                       selectedOption1 = newValue;
+                      updateControlPoints();
+                      drawOffsets = false; // Resetear el dibujo al cambiar las opciones
                     });
                   }
                 },
               ),
-              SizedBox(width: 16.0),
               DropdownButton<String>(
                 value: selectedOption2,
                 items: options2.map((String option) {
@@ -143,11 +198,12 @@ class _RouteMapState extends State<RouteMap> {
                   if (newValue != null) {
                     setState(() {
                       selectedOption2 = newValue;
+                      updateControlPoints();
+                      drawOffsets = false; // Resetear el dibujo al cambiar las opciones
                     });
                   }
                 },
               ),
-              SizedBox(width: 16.0),
               DropdownButton<String>(
                 value: selectedOption3,
                 items: options3.map((String option) {
@@ -160,6 +216,8 @@ class _RouteMapState extends State<RouteMap> {
                   if (newValue != null) {
                     setState(() {
                       selectedOption3 = newValue;
+                      updateControlPoints();
+                      drawOffsets = false; // Resetear el dibujo al cambiar las opciones
                     });
                   }
                 },
@@ -168,11 +226,12 @@ class _RouteMapState extends State<RouteMap> {
           ),
           ElevatedButton(
             onPressed: () {
-              updateControlPoints();
+              setState(() {
+                drawOffsets = true; // Activar el dibujo al presionar el botón
+              });
             },
-            child: Text('Dibujar Offset'),
+            child: const Text('Dibujar Offset'),
           ),
-          Text("Las opciones con números son el inicio y las opciones con letras son el final"),
         ],
       ),
     );
